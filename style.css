@@ -1,17 +1,31 @@
 /* ===========================
-Estilos generales (Estilo Google / Material)
+Estilos generales (Estilo Google / Material Dinámico)
 =========================== */
 body {
   font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-  background-color: #ffffff;
+  background-color: #f8f9fa;
+  /* Fondo gris claro sutil para contrastar con tarjetas blancas */
   color: #202124;
-  /* El gris oscuro clásico de Google */
   margin: 0;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Animación global de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===========================
@@ -19,20 +33,26 @@ Encabezado
 =========================== */
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  animation: fadeInUp 0.6s ease-out;
 }
 
 header h1 {
   margin-bottom: 8px;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   color: #202124;
-  font-weight: 400;
-  /* Google prefiere fuentes no tan pesadas en títulos */
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+/* Efecto de color en la primera letra al estilo Google */
+header h1 span {
+  color: #1a73e8;
+  /* Azul */
 }
 
 header p {
   color: #70757a;
-  /* Gris secundario de Google */
   font-size: 14px;
   margin-top: 0;
 }
@@ -43,36 +63,35 @@ Contenedor principal
 main {
   width: 100%;
   max-width: 750px;
-  /* Ancho más alineado a los resultados de búsqueda */
 }
 
 /* ===========================
-Buscador (Estilo Google Search)
+Buscador (Estilo Google Search Interactivo)
 =========================== */
 .search-container {
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.7s ease-out;
 }
 
 input {
   width: 100%;
   max-width: 480px;
-  padding: 12px 20px;
-  border-radius: 24px;
-  /* Forma de píldora clásica de Google */
+  padding: 14px 24px;
+  border-radius: 28px;
   border: 1px solid #dfe1e5;
   background: #ffffff;
   color: #202124;
   font-size: 16px;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s;
 }
 
 input:focus {
   outline: none;
-  border-color: transparent;
-  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+  border-color: rgba(26, 115, 232, 0.4);
+  box-shadow: 0 2px 8px rgba(32, 33, 36, 0.2);
 }
 
 input::placeholder {
@@ -80,64 +99,122 @@ input::placeholder {
 }
 
 button {
-  padding: 12px 24px;
-  border: 1px solid #f8f9fa;
-  border-radius: 4px;
-  background: #f8f9fa;
-  /* Botón gris secundario de Google */
-  color: #3c4043;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 28px;
+  /* Cambiado a píldora para mayor dinamismo */
+  background: #1a73e8;
+  /* Azul Google activo por defecto */
+  color: #ffffff;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: border 0.1s, box-shadow 0.1s;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
 }
 
 button:hover {
-  border: 1px solid #dadce0;
-  color: #202124;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background: #1557b0;
+  box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(26, 115, 232, 0.3);
+}
+
+/* Barra de carga animada (Google Style Loader) */
+.loading-bar {
+  width: 100%;
+  max-width: 600px;
+  height: 4px;
+  margin: 0 auto 30px auto;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  background: #f1f3f4;
+}
+
+.loading-bar::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(90deg, #1a73e8, #ea4335, #fbbc05, #34a853);
+  animation: googleLoad 2s linear infinite;
+}
+
+@keyframes googleLoad {
+  0% {
+    left: -50%;
+    width: 30%;
+  }
+
+  50% {
+    width: 40%;
+  }
+
+  100% {
+    left: 100%;
+    width: 30%;
+  }
 }
 
 /* ===========================
-Tarjeta de información (Estilo Google Maps info panel)
+Tarjeta de información (Estilo Panel de Maps con Hover Dinámico)
 =========================== */
 .weather-card {
   background: #ffffff;
-  padding: 24px;
-  border-radius: 8px;
+  padding: 26px;
+  border-radius: 12px;
   border: 1px solid #dadce0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   margin-bottom: 25px;
   line-height: 1.6;
+  animation: fadeInUp 0.8s ease-out;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Efecto de elevación interactiva Material Design */
+.weather-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(32, 33, 36, 0.12);
+  border-color: #1a73e8;
+  /* Cambia al azul de Google al interactuar */
 }
 
 .weather-card h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1.6rem;
+  font-weight: 500;
   color: #1a73e8;
-  /* Azul Google para destacar el lugar */
   margin-top: 0;
   margin-bottom: 12px;
 }
 
 .weather-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 400;
-  color: #3c4043;
+  color: #ea4335;
+  /* Rojo Google para destacar temperaturas/estados */
 }
 
 .description {
-  background: #f1f3f4;
-  /* Fondo gris claro para destacar texto */
-  padding: 12px;
+  background: #fdf7e7;
+  /* Fondo amarillo muy suave estilo alerta/info de Google */
+  padding: 12px 16px;
   border-radius: 8px;
-  color: #3c4043;
+  color: #b06000;
+  /* Texto café/amarillo oscuro contrastante */
+  border-left: 4px solid #fbbc05;
+  /* Borde Amarillo Google */
 }
 
 .geo-data {
   color: #70757a;
   font-size: 13px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .weather-data {
@@ -145,38 +222,50 @@ Tarjeta de información (Estilo Google Maps info panel)
 }
 
 .weather-data h4 {
-  color: #1a73e8;
+  color: #34a853;
+  /* Verde Google */
   font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   margin-bottom: 10px;
 }
 
 .weather-data p {
-  margin: 6px 0;
+  margin: 8px 0;
   color: #3c4043;
+  transition: color 0.2s;
+}
+
+.weather-data p:hover {
+  color: #1a73e8;
+  /* Resalta datos en azul al pasar el cursor */
 }
 
 .success-footer {
   margin-top: 20px;
   text-align: center;
   color: #188038;
-  /* Verde Google para aciertos/éxito */
   font-weight: 500;
   font-size: 14px;
 }
 
 /* ===========================
-Mapa (Estilo Google Maps embebido)
+Mapa (Google Maps con entrada suave)
 =========================== */
 #map {
   width: 100%;
   height: 450px;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid #dadce0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   margin-top: 20px;
+  animation: fadeInUp 0.9s ease-out;
+  transition: box-shadow 0.3s;
+}
+
+#map:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* ===========================
@@ -184,7 +273,7 @@ Línea divisoria
 ========================== */
 hr {
   border: none;
-  border-top: 1px solid #dadce0;
+  border-top: 1px solid #dfe1e5;
   margin: 24px 0;
 }
 
@@ -195,18 +284,13 @@ Responsive
   .search-container {
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
 
   input,
   button {
     width: 100%;
     max-width: 100%;
-  }
-
-  button {
-    border-radius: 24px;
-    /* En móvil, el botón luce mejor redondeado si va abajo */
   }
 
   #map {
