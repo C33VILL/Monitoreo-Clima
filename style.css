@@ -1,10 +1,12 @@
 /* ===========================
-Estilos generales (Estilo Google / Material Dinámico)
+Estilos generales (Google / Material Dinámico con Fondo Animado)
 =========================== */
 body {
   font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-  background-color: #f8f9fa;
-  /* Fondo gris claro sutil para contrastar con tarjetas blancas */
+  /* Fondo con degradado suave usando los tonos pastel de Google */
+  background: linear-gradient(-45deg, #e8f0fe, #fce8e6, #fef7e0, #e6f4ea);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite, fadeInUp 0.6s ease-out;
   color: #202124;
   margin: 0;
   padding: 20px;
@@ -13,6 +15,21 @@ body {
   align-items: center;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Animación para el movimiento fluido del fondo */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Animación global de entrada */
@@ -34,7 +51,6 @@ Encabezado
 header {
   text-align: center;
   margin-bottom: 25px;
-  animation: fadeInUp 0.6s ease-out;
 }
 
 header h1 {
@@ -82,16 +98,20 @@ input {
   padding: 14px 24px;
   border-radius: 28px;
   border: 1px solid #dfe1e5;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
+  /* Ligeramente translúcido para fundirse con el fondo */
   color: #202124;
   font-size: 16px;
-  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s;
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s, background-color 0.25s;
+  backdrop-filter: blur(4px);
+  /* Suave efecto borroso de fondo */
 }
 
 input:focus {
   outline: none;
+  background: #ffffff;
   border-color: rgba(26, 115, 232, 0.4);
-  box-shadow: 0 2px 8px rgba(32, 33, 36, 0.2);
+  box-shadow: 0 4px 12px rgba(32, 33, 36, 0.15);
 }
 
 input::placeholder {
@@ -102,7 +122,6 @@ button {
   padding: 14px 28px;
   border: none;
   border-radius: 28px;
-  /* Cambiado a píldora para mayor dinamismo */
   background: #1a73e8;
   /* Azul Google activo por defecto */
   color: #ffffff;
@@ -115,8 +134,8 @@ button {
 
 button:hover {
   background: #1557b0;
-  box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
-  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+  transform: translateY(-2px);
 }
 
 button:active {
@@ -133,7 +152,7 @@ button:active {
   border-radius: 2px;
   overflow: hidden;
   position: relative;
-  background: #f1f3f4;
+  background: rgba(241, 243, 244, 0.5);
 }
 
 .loading-bar::before {
@@ -166,23 +185,24 @@ button:active {
 Tarjeta de información (Estilo Panel de Maps con Hover Dinámico)
 =========================== */
 .weather-card {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
   padding: 26px;
-  border-radius: 12px;
-  border: 1px solid #dadce0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(218, 220, 224, 0.6);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
   margin-bottom: 25px;
   line-height: 1.6;
   animation: fadeInUp 0.8s ease-out;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(8px);
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s;
 }
 
-/* Efecto de elevación interactiva Material Design */
+/* Efecto de elevación e iluminación interactiva */
 .weather-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(32, 33, 36, 0.12);
-  border-color: #1a73e8;
-  /* Cambia al azul de Google al interactuar */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(32, 33, 36, 0.08);
+  border-color: rgba(26, 115, 232, 0.5);
+  background: #ffffff;
 }
 
 .weather-card h2 {
@@ -197,18 +217,14 @@ Tarjeta de información (Estilo Panel de Maps con Hover Dinámico)
   font-size: 1.3rem;
   font-weight: 400;
   color: #ea4335;
-  /* Rojo Google para destacar temperaturas/estados */
 }
 
 .description {
   background: #fdf7e7;
-  /* Fondo amarillo muy suave estilo alerta/info de Google */
   padding: 12px 16px;
   border-radius: 8px;
   color: #b06000;
-  /* Texto café/amarillo oscuro contrastante */
   border-left: 4px solid #fbbc05;
-  /* Borde Amarillo Google */
 }
 
 .geo-data {
@@ -223,7 +239,6 @@ Tarjeta de información (Estilo Panel de Maps con Hover Dinámico)
 
 .weather-data h4 {
   color: #34a853;
-  /* Verde Google */
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -233,12 +248,14 @@ Tarjeta de información (Estilo Panel de Maps con Hover Dinámico)
 .weather-data p {
   margin: 8px 0;
   color: #3c4043;
-  transition: color 0.2s;
+  transition: color 0.2s, padding-left 0.2s;
 }
 
+/* Microinteracción al pasar el mouse sobre las filas de datos */
 .weather-data p:hover {
   color: #1a73e8;
-  /* Resalta datos en azul al pasar el cursor */
+  padding-left: 4px;
+  /* Pequeño desplazamiento dinámico */
 }
 
 .success-footer {
@@ -255,17 +272,18 @@ Mapa (Google Maps con entrada suave)
 #map {
   width: 100%;
   height: 450px;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid #dadce0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   margin-top: 20px;
   animation: fadeInUp 0.9s ease-out;
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
 #map:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 /* ===========================
